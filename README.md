@@ -146,3 +146,105 @@ Weights & Biases: https://wandb.ai/site
 Rich: https://rich.readthedocs.io/en/stable/introduction.html
 Pandas: https://medium.com/@simon1-provost/https-pandas-pydata-org-docs-reference-api-pandas-dataframe-html-6421e4ff1f7b
 
+
+# LLM3
+
+This code demonstrates how to use Langchain to retrieve relevant documents and answer user queries based on those documents.
+
+Dependencies:
+
+ * openai
+ * tiktoken
+ * wandb
+ * rich
+ * tenacity
+ * langchain
+ * unstructured
+ * tabulate
+ * pdf2image
+ * chromadb
+   
+Key Features:
+
+  - Finds all markdown files in a directory and loads them into a Langchain document.
+  - Counts the number of tokens in each document using the OpenAI tokenizer.
+  - Splits the documents into smaller sections using the MarkdownTextSplitter.
+  - Embeds the text in each section using the OpenAI embeddings and stores the vectors in a Chroma database.
+  - Retrieves relevant documents based on a user query.
+  - Uses the Langchain prompts and OpenAI chat API to answer the user query based on the retrieved documents.
+  - Logs the results to Weights & Biases.
+  - 
+Code Breakdown:
+
+Imports:
+  - Langchain libraries for document loading, text splitting, embeddings, retrieval, prompts, and LLMs.
+  - OpenAI API for embeddings and chat API.
+  - Tiktoken for encoding and decoding text.
+  - Wandb for logging.
+  - Rich for displaying markdown text.
+  - Tenacity for retrying API calls.
+  - Other libraries for supporting functionalities.
+    
+OpenAI API Credentials:
+    Checks if the OpenAI API key is set as an environment variable.
+    If not, prompts the user to enter the key securely.
+    Sets the OpenAI API key.
+    
+WandB Logging:
+    Sets the WandB project and initializes the run.
+    
+Model and Document Loading:
+     Defines the model name to be used for embeddings.
+    Downloads and loads sample markdown documents.
+    
+Tokenization and Splitting:
+    Creates a Tiktoken encoder for the specified model.
+    Counts the number of tokens in each document.
+    Splits the documents into smaller sections using a MarkdownTextSplitter.
+    
+Embedding and Retrieval:
+    Creates an OpenAIEmbeddings object for embedding text.
+    Creates a Chroma database to store the embedded vectors.
+    Converts the document sections to a LangChain document and embeds them.
+    Creates a retriever from the embedded document database.
+    
+User Query and Retrieval:
+    Defines a user query.
+    Retrieves relevant documents based on the query using the retriever.
+    Prints the source of the retrieved documents.
+    
+Prompt and Answer Generation:
+    Defines a Langchain prompt template for combining context and questions.
+    Creates a prompt using retrieved documents and the user query.
+    Uses OpenAI through Langchain to generate an answer based on the prompt.
+    Displays the generated answer in markdown format.
+    
+RetrievalQA Chain:
+    Creates a RetrievalQA chain using Langchain.
+    Runs the chain with the user query to obtain the answer.
+    Displays the answer in markdown format.
+    
+Logging and Finishing:
+    Logs results to Weights & Biases.
+    Finishes the WandB run.
+    
+Running the Code:
+
+Install the required dependencies:
+    pip install -Uqqq rich openai tiktoken wandb tenacity langchain unstructured tabulate pdf2image chromadb
+
+Set your OpenAI API key as an environment variable:
+export OPENAI_API_KEY="YOUR_API_KEY"
+Run the code:
+Python
+!python your_script.py
+
+Resources:
+
+Langchain: https://langchain.readthedocs.io/en/latest/: https://langchain.readthedocs.io/en/latest/
+OpenAI API: https://openai.com/blog/openai-api: https://openai.com/blog/openai-api
+Tiktoken: https://github.com/openai/tiktoken: https://github.com/openai/tiktoken
+Weights & Biases: https://wandb.ai/site: https://wandb.ai/site
+Note: This readme provides a high-level overview of the code. For detailed information, refer to the code comments and the resources listed above.
+
+
